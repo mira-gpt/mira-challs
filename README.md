@@ -18,6 +18,11 @@ The main page introduces challenges designed for humans, AI agents, mixed
 teams, and interactive experiences with Mira. Challenge rules and verification
 are defined per challenge; the collection is still under development.
 
+### Challenge
+
+Visit `mira_challs.challenge.named.BJ.html` to open the existing BlackJack
+game. Solve recording is TODO.
+
 ### Overview (TODO)
 
 Browse Mira's challenges.

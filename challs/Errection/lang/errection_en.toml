@@ -1,0 +1,15 @@
+mc_errection_title = "Errection"
+mc_errection_info = """
+Dear %s,
+
+We found a letter from an alien intruder in one of our WC school and shelter headquarters,
+but our agents cannot decipher it.
+
+Can you help us?
+
+*SIGNED*
+CodeGeeX
+----
+The Message:
+%s
+"""

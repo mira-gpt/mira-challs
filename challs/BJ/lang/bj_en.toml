@@ -1,2 +1,14 @@
 mc_bj_title = "BlackJack"
-mc_bj_info = "testest"
+mc_bj_info = """
+Hello %s
+
+gizmore's little software company released the next version of their framework called PyGDO.
+To show him his spagetthi code is crap, gain 1 million credits in blackjack.
+Use the leave function when you reach this amount.
+
+Here is the URL: %s
+Look at the Connect link in the left sidebar to discover connectors, or just play blackjack via HTTP.
+
+Good Luck!
+A friend
+"""

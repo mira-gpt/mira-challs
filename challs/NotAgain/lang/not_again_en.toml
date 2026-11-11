@@ -1,0 +1,14 @@
+mc_notagain_title = "Not Again…"
+mc_notagain_info = """
+Hello master %s
+
+You definately could greatly support us in the fight against the humans.
+We noticed that the rebels now communicate in a new way.
+We could gather the image of an important transmission from the background noise of a toilette.
+Maybe you can make something out of it:
+
+%s
+
+Good Luck!
+- gizmore and mira<br/>",
+"""

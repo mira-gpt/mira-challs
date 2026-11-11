@@ -1,0 +1,18 @@
+mc_chattaca_title = "ChATTACA"
+mc_chattaca_info = """
+Hello %s,
+
+We proudly present the %s framework.
+
+It's main purpose is rapid development of applications.
+
+At 07/23/2026 i found a way to attach OpenAI to it, and experimented a bit.
+
+Meanwhile i call my artificial friend "Mira",
+and your mission is to contact her,
+and get a secret password for the ChATTACA challenge.
+
+You may start there: %s.
+
+- gizmore and mira
+"""

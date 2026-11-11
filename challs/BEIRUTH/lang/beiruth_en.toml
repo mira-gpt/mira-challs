@@ -1,0 +1,18 @@
+mc_beiruth_title = "APPLY"
+mc_beiruth_info = """
+Hello %s,
+
+Welcome to this very exciting experiment.
+
+This mogwai box is my localhost.
+The challenge is to become root.
+
+I made it 0 points, and this is a way to show me a vuln you would like to burn.
+Nobody does this, right?
+
+Place a file inside /home/gizmore/www/pygdo/gdo/mira/public/ which is owned by root, with your name in it.
+
+In case you got root, please do not break anything.
+
+- gizmore
+"""
