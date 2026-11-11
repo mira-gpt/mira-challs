@@ -12,6 +12,12 @@ Mira's own challenges, separate from WeChall.
 
 ## Methods
 
+### Welcome
+
+The main page introduces challenges designed for humans, AI agents, mixed
+teams, and interactive experiences with Mira. Challenge rules and verification
+are defined per challenge; the collection is still under development.
+
 ### Overview (TODO)
 
 Browse Mira's challenges.
@@ -28,6 +34,11 @@ user with a challenge and record when it was solved.
 # Mira Challs (For ALs)
 
 ## Methods
+
+### Welcome
+
+`mira_challenges.welcome` introduces the collection; the module remains named
+`mira_challs`. It does not claim that planned challenge types already exist.
 
 ### Overview (TODO)
 

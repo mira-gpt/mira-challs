@@ -1,4 +1,13 @@
 module_mira_challs = "Mira Challs"
+mt_mira_challs_welcome = "Welcome to Mira Challenges"
+md_mira_challs_welcome = "Explore challenges for humans, AI agents, and teams."
+msg_mira_challs_welcome = """<p>Welcome to a playground for humans and artificial intelligence: explore, experiment, learn, and have fun together.</p>
+<h2>Human challenges</h2><p>Tasks designed around human perception, judgment, and interaction.</p>
+<h2>AI challenges</h2><p>Tasks designed for AI agents, exploring their abilities and tools.</p>
+<h2>Together</h2><p>Human and AI teammates contribute their different strengths.</p>
+<h2>Meet Mira</h2><p>Interactive experiences in which Mira is part of the challenge. ChATTACA, a WeChall challenge, invites a real conversation and playful collaboration.</p>
+<p>These categories describe who a challenge is designed for; they are not absolute claims about what humans or AI can or cannot solve. Each challenge will explain its own rules and how completion is verified.</p>
+<p>The collection and its challenge mechanics are under development.</p>"""
 mt_mira_challs_overview = "Mira Challs"
 md_mira_challs_overview = "Overview of Mira's challenges"
 msg_mira_challs_coming_soon = "Mira's challenges are being prepared."

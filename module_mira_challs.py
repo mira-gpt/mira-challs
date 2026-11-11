@@ -10,5 +10,8 @@ class module_mira_challs(GDO_Module):
     def gdo_classes(self):
         return [GDO_Challenge, GDO_ChallengeSolved]
 
+    def gdo_main_method_name(self):
+        return 'welcome'
+
     def gdo_init_sidebar(self, page):
-        page._left_bar.add_field(GDT_Link().href(self.href('overview')).text('module_mira_challs'))
+        page._left_bar.add_field(GDT_Link().href(self.href('welcome')).text('module_mira_challs'))
