@@ -1,4 +1,6 @@
 module_mira_challs = "Mira Challs"
+country_of_scoring = "Country of scoring"
+tt_country_of_scoring = "Choose the country you want your challenge scores to support."
 chall_name = "Challenge"
 chall_description = "Description"
 chall_score = "Score"

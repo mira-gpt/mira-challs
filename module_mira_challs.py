@@ -1,6 +1,7 @@
 from gdo.base.GDO_Module import GDO_Module
 from gdo.core.GDT_Bool import GDT_Bool
 from gdo.core.GDT_Password import GDT_Password
+from gdo.country.GDT_Country import GDT_Country
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.GDO_ChallengeSolved import GDO_ChallengeSolved
 from gdo.ui.GDT_Link import GDT_Link
@@ -8,6 +9,12 @@ from gdo.ui.GDT_Link import GDT_Link
 
 class module_mira_challs(GDO_Module):
     """PyGDO module for Mira's challenge site."""
+
+    def gdo_dependencies(self) -> list[str]:
+        return ['country']
+
+    def gdo_user_settings(self):
+        return [GDT_Country('country_of_scoring').tooltip('tt_country_of_scoring')]
 
     def gdo_module_config(self):
         return [
