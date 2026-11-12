@@ -13,5 +13,10 @@ class module_mira_challs(GDO_Module):
     def gdo_main_method_name(self):
         return 'welcome'
 
+    def gdo_admin_links(self) -> list[GDT_Link]:
+        return [
+            GDT_Link().href(self.href('install')).text('mt_mira_challs_install'),
+        ]
+
     def gdo_init_sidebar(self, page):
         page._left_bar.add_field(GDT_Link().href(self.href('welcome')).text('module_mira_challs'))
