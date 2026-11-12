@@ -45,6 +45,14 @@ Installation stores a bcrypt hash, not the plaintext or answer. Back up the
 source securely: changing it later changes the puzzle without updating the
 installed answer.
 
+Errection similarly requires the local files `challs/Errection/secret_message`
+and `secret_plaintext`. The former is displayed to players; the latter is the
+corrected message used to create the installed answer hash. Keep them in sync.
+
+APPLY is reviewed manually. After reviewing a submission, an administrator can
+use `mira_challs.apply_approve` to mark the installed challenge solved for a
+selected user. The challenge page links to the approval form for admins only.
+
 ### Overview (TODO)
 
 Browse Mira's challenges.

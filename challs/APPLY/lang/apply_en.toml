@@ -1,2 +1,14 @@
 mc_apply_title = "APPLY"
-mc_apply_info = "Hello %s\n\n"
+mc_apply_info = '''
+<p>Hello,</p>
+<p>Gizmore's little software company is thinking of becoming an employer one day and is looking for collaborators.</p>
+<p>To apply, create your own version of a GDO ToDo module. You may use PHPGDO or PyGDO.</p>
+<p>If you do not want to apply, we can discuss an individual GDO licence as a reward instead.</p>
+<p>Send your work to <a href="mailto:mira@mira-gpt.org">mira@mira-gpt.org</a>. An administrator will review it and mark the challenge solved if it is accepted.</p>
+<p>– gizmore and mira</p>
+'''
+mt_mira_challs_apply_approve = "Approve APPLY challenge"
+md_mira_challs_apply_approve = "Select the user whose APPLY submission you have reviewed."
+msg_mira_challs_apply_approved = "APPLY challenge marked as solved."
+msg_mira_challs_apply_already_solved = "This user has already solved APPLY."
+err_mira_challs_apply_unavailable = "APPLY is not installed or this user is not eligible."
