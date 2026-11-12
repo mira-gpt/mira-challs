@@ -1,5 +1,6 @@
 module_mira_challs = "Mira Challs"
 chall_name = "Challenge"
+chall_description = "Description"
 chall_score = "Score"
 mt_mira_challs_install = "Install challenges"
 mira_challs_install_status = "Status"

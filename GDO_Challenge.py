@@ -7,6 +7,7 @@ from gdo.core.GDO_User import GDO_User
 from gdo.core.GDT_AutoInc import GDT_AutoInc
 from gdo.core.GDT_Creator import GDT_Creator
 from gdo.core.GDT_Name import GDT_Name
+from gdo.core.GDT_String import GDT_String
 from gdo.date.GDT_Created import GDT_Created
 from gdo.date.Time import Time
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
@@ -21,6 +22,7 @@ class GDO_Challenge(GDO):
         return [
             GDT_AutoInc('chall_id'),
             GDT_Name('chall_name').not_null().unique(),
+            GDT_String('chall_description').maxlen(128),
             GDT_Score('chall_score').min(1).max(10).initial('1'),
             GDT_ChallSecret('chall_secret'),
             GDT_Creator('chall_creator'),

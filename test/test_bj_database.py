@@ -19,7 +19,7 @@ class BJDatabaseTest(unittest.TestCase):
         Application.mode(Mode.render_html)
         db = Application.db()
         self.assertEqual('pygdo_tes', db.db_name)
-        db.query('CREATE TEMPORARY TABLE gdo_challenge (chall_id INT AUTO_INCREMENT PRIMARY KEY, chall_name VARCHAR(192) UNIQUE NOT NULL, chall_score INT, chall_secret VARCHAR(255), chall_creator INT, chall_created DATETIME) ENGINE=InnoDB')
+        db.query('CREATE TEMPORARY TABLE gdo_challenge (chall_id INT AUTO_INCREMENT PRIMARY KEY, chall_name VARCHAR(192) UNIQUE NOT NULL, chall_description VARCHAR(128), chall_score INT, chall_secret VARCHAR(255), chall_creator INT, chall_created DATETIME) ENGINE=InnoDB')
         db.query('CREATE TEMPORARY TABLE gdo_challengesolved (solve_challenge INT NOT NULL, solve_user INT NOT NULL, solve_timestamp DATETIME, solve_created DATETIME NOT NULL, PRIMARY KEY (solve_challenge, solve_user)) ENGINE=InnoDB')
         db.begin()
         try:
