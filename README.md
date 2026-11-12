@@ -20,8 +20,24 @@ are defined per challenge; the collection is still under development.
 
 ### Challenge
 
-Visit `mira_challs.challenge.named.BJ.html` to open the existing BlackJack
-game. Solve recording is TODO.
+Visit `mira_challs.challenge.named.BJ.html` to open the Blackjack challenge.
+Earn at least one million Blackjack credits, leave the table for a signed token,
+and submit it while logged in. A successful answer records the solve once.
+The token is a bearer credential: anyone possessing it can redeem it, as in
+the GWF3 draft; keep it private. Invalid or unconfigured tokens fail closed.
+When requested from a chat channel, the Blackjack token is returned privately.
+Blackjack and BJ share a BJ-specific key, stored outside the web root at
+`.config/pygdo/secret_bj_token` in the installation owner's home. Override
+the path with `PYGDO_BJ_SECRET_PATH`; on separate hosts provision the same
+private 64-hex-character key securely on each. This shared core token protocol avoids a module dependency in either
+direction. Existing unrelated secrets are not used.
+
+### Install challenges
+
+`mira_challs.install` lists uninstalled challenge folders for administrators.
+Each loadable challenge has its own Install button; incomplete folders are
+shown without one. Installation uses a CSRF-protected POST and rechecks the
+challenge before inserting it, without overwriting an existing challenge.
 
 ### Overview (TODO)
 

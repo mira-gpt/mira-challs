@@ -35,7 +35,11 @@ class GDO_Challenge(GDO):
         return challenge()
 
     def check_answer(self, answer):
-        raise NotImplementedError
+        record = GDO_Challenge.table().get_by_vals({'chall_name': type(self).__name__})
+        secret_hash = record.gdo_val('chall_secret') if record else None
+        if not secret_hash:
+            raise NotImplementedError
+        return GDT_ChallSecret.check(secret_hash, answer)
 
     def start(self, user: GDO_User):
         if not user.is_member():

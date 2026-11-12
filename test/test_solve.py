@@ -4,6 +4,7 @@ from unittest.mock import MagicMock, patch
 from gdo.base.Application import Application
 from gdo.base.Render import Mode
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
+from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.method.solve import solve
 
 
@@ -34,14 +35,16 @@ class SolveTest(unittest.TestCase):
             return result
 
     def test_fixed_hash(self):
+        class Fixed(GDO_Challenge):
+            pass
         self.record.gdo_val.return_value = GDT_ChallSecret.hash('answer')
-        self.assertEqual('msg_mira_challs_answer_correct', self.submit())
-        self.form.get_field.return_value.get_val.return_value = 'incorrect'
-        self.assertEqual('err_mira_challs_wrong_answer', self.submit())
-        self.challenge.check_answer.assert_not_called()
+        with patch('gdo.mira_challs.GDO_Challenge.GDO_Challenge.table') as table:
+            table.return_value.get_by_vals.return_value = self.record
+            self.assertTrue(Fixed().check_answer('answer'))
+            self.assertFalse(Fixed().check_answer('incorrect'))
 
     def test_custom_checker(self):
-        self.record.gdo_val.return_value = None
+        self.record.gdo_val.return_value = 'a stored hash must not bypass an override'
         self.challenge.check_answer.return_value = True
         self.assertEqual('msg_mira_challs_answer_correct', self.submit())
         self.challenge.check_answer.assert_called_once_with('answer')
@@ -49,6 +52,10 @@ class SolveTest(unittest.TestCase):
     def test_missing_custom_checker(self):
         self.record.gdo_val.return_value = None
         self.challenge.check_answer.side_effect = NotImplementedError
+        self.assertEqual('err_mira_challs_solve_unavailable', self.submit())
+
+    def test_missing_secret_reports_unavailable(self):
+        self.challenge.check_answer.side_effect = FileNotFoundError
         self.assertEqual('err_mira_challs_solve_unavailable', self.submit())
 
     def test_existing_solve_is_not_inserted_again(self):

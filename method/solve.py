@@ -2,7 +2,6 @@ from gdo.base.GDT import GDT
 from gdo.core.GDT_String import GDT_String
 from gdo.form.MethodForm import MethodForm
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
-from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
 
 
 class solve(MethodForm):
@@ -12,7 +11,7 @@ class solve(MethodForm):
         ]
 
     def gdo_create_form(self, form):
-        form.add_field(GDT_String('answer').label('mira_challs_answer').not_null())
+        form.add_field(GDT_String('answer').maxlen(512).label('mira_challs_answer').not_null())
         super().gdo_create_form(form)
 
     def form_submitted(self):
@@ -22,10 +21,9 @@ class solve(MethodForm):
         if not record:
             return self.err('err_mira_challs_solve_unavailable')
         answer = self.get_form().get_field('answer').get_val()
-        secret_hash = record.gdo_val('chall_secret')
         try:
-            valid = GDT_ChallSecret.check(secret_hash, answer) if secret_hash else challenge.check_answer(answer)
-        except (NotImplementedError, ValueError):
+            valid = challenge.check_answer(answer)
+        except (NotImplementedError, ValueError, OSError):
             return self.err('err_mira_challs_solve_unavailable')
         if not valid:
             return self.err('err_mira_challs_wrong_answer')

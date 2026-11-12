@@ -1,4 +1,7 @@
 mc_bj_title = "BlackJack"
+mt_mira_challs_bj = "BlackJack"
+link_mira_challs_bj_play = "Play BlackJack"
+mc_bj_instructions = "Earn one million Blackjack credits, leave the table to receive your token, then submit it here while logged in. Keep your token private."
 mc_bj_info = """
 Hello %s
 
