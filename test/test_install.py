@@ -73,8 +73,10 @@ class InstallTest(unittest.TestCase):
         record = MagicMock()
         with patch('gdo.mira_challs.method.install_one.href', return_value='/install'), \
              patch('gdo.mira_challs.method.install_one.discover_challenges', return_value=(['BJ', 'APPLY'], [])), \
+             patch('gdo.mira_challs.method.install_one.GDO_Challenge.load_challenge') as load, \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.table', return_value=table), \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.blank', return_value=record) as blank:
+            load.return_value.install_values.return_value = {'chall_name': 'BJ'}
             self.assertEqual(method.form_submitted(), 'ok')
             blank.assert_called_once_with({'chall_name': 'BJ'})
             record.insert.assert_called_once()

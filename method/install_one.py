@@ -21,5 +21,9 @@ class install_one(MethodForm):
         destination = href('mira_challs', 'install')
         if name not in ready or GDO_Challenge.table().get_by_vals({'chall_name': name}):
             return self.redirect_err(destination, 'err_mira_challs_install_unavailable', (name,))
-        GDO_Challenge.blank({'chall_name': name}).insert()
+        try:
+            values = GDO_Challenge.load_challenge(name).install_values()
+        except (OSError, ValueError):
+            return self.redirect_err(destination, 'err_mira_challs_install_unavailable', (name,))
+        GDO_Challenge.blank(values).insert()
         return self.redirect_msg(destination, 'msg_mira_challs_installed', (name,))

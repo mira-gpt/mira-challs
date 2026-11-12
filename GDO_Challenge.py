@@ -41,6 +41,9 @@ class GDO_Challenge(GDO):
             raise NotImplementedError
         return GDT_ChallSecret.check(secret_hash, answer)
 
+    def install_values(self):
+        return {'chall_name': type(self).__name__}
+
     def start(self, user: GDO_User):
         if not user.is_member():
             return None

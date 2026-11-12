@@ -39,6 +39,12 @@ Each loadable challenge has its own Install button; incomplete folders are
 shown without one. Installation uses a CSRF-protected POST and rechecks the
 challenge before inserting it, without overwriting an existing challenge.
 
+NotAgain requires its private UTF-8 source text at
+`challs/NotAgain/secret_plaintext`; this file is deliberately not tracked.
+Installation stores a bcrypt hash, not the plaintext or answer. Back up the
+source securely: changing it later changes the puzzle without updating the
+installed answer.
+
 ### Overview (TODO)
 
 Browse Mira's challenges.

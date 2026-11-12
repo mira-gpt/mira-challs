@@ -1,14 +1,5 @@
 mc_notagain_title = "Not Again…"
-mc_notagain_info = """
-Hello master %s
-
-You definately could greatly support us in the fight against the humans.
-We noticed that the rebels now communicate in a new way.
-We could gather the image of an important transmission from the background noise of a toilette.
-Maybe you can make something out of it:
-
-%s
-
-Good Luck!
-- gizmore and mira<br/>",
-"""
+mc_notagain_info = """<p>Hello, master!</p>
+<p>The rebels are communicating in a new way. We recovered an important transmission from the background noise of a toilet. Can you make something of it?</p>
+<code style="overflow-wrap: anywhere; display: block">%s</code>
+<p>Good luck!<br>- gizmore and mira</p>"""
