@@ -1,9 +1,11 @@
 from importlib import import_module
+from html.parser import HTMLParser
 import re
 
 from gdo.base.GDO import GDO
 from gdo.base.GDT import GDT
 from gdo.base.Query import Query
+from gdo.base.Trans import t, thas
 from gdo.core.GDO_User import GDO_User
 from gdo.core.GDT_AutoInc import GDT_AutoInc
 from gdo.core.GDT_Creator import GDT_Creator
@@ -16,12 +18,37 @@ from gdo.date.GDT_Timestamp import GDT_Timestamp
 from gdo.date.Time import Time
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
 from gdo.ui.GDT_Score import GDT_Score
+
+
+class _InfoText(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts = []
+
+    def handle_data(self, data):
+        self.parts.append(data)
+
+    def handle_starttag(self, tag, attrs):
+        self.parts.append(' ')
+
+    def handle_endtag(self, tag):
+        self.parts.append(' ')
 from gdo.tags.WithTags import WithTags
 
 
 class GDO_Challenge(WithTags, GDO):
 
     _score: int = 1
+
+    def get_challenge_info(self):
+        key = f'mc_{type(self).__name__.lower()}_info'
+        if not thas(key):
+            return ''
+        parser = _InfoText()
+        parser.feed(t(key))
+        text = ' '.join(parser.parts)
+        text = re.sub(r'%(?:\([^)]+\))?[#0 +\-]*\d*(?:\.\d+)?[a-zA-Z]', '', text)
+        return re.sub(r'\s+([,.;:!?])', r'\1', ' '.join(text.split()))
 
     def gdo_tags_table(self):
         from gdo.mira_challs.GDO_ChallengeTag import GDO_ChallengeTag
