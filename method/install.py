@@ -5,13 +5,10 @@ import re
 from gdo.base.ResultArray import ResultArray
 from gdo.base.util.href import href
 from gdo.core.GDT_String import GDT_String
-from gdo.form.GDT_CSRF import GDT_CSRF
-from gdo.form.GDT_Form import GDT_Form
-from gdo.form.GDT_Hidden import GDT_Hidden
-from gdo.form.GDT_Submit import GDT_Submit
 from gdo.mira_challs.module_mira_challs import module_mira_challs
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.table.MethodTable import MethodTable
+from gdo.ui.GDT_Link import GDT_Link
 
 
 def discover_challenges(directory=None):
@@ -77,18 +74,10 @@ class install(MethodTable):
         key = 'mira_challs_ready' if challenge.gdo_val('chall_name') in self.candidates()[0] else 'mira_challs_incomplete'
         return self.t(key, ())
 
-    def csrf_token(self):
-        # One token per page, shared by the separate row forms. Generating one
-        # per row would invalidate early rows when more than 17 are displayed.
-        if not hasattr(self, '_install_csrf_token'):
-            self._install_csrf_token = GDT_CSRF().generate_token()
-        return self._install_csrf_token
-
     def render_install_action(self, field, challenge):
         name = challenge.gdo_val('chall_name')
         if name not in self.candidates()[0]:
             return ''
-        form = GDT_Form().href(href('mira_challs', 'install_one', positional=(name,)))
-        form.add_field(GDT_Hidden('csrf').val(self.csrf_token()))
-        form.actions().add_field(GDT_Submit().text('mira_challs_install_button'))
-        return form.render_html()
+        return GDT_Link().href(
+            href('mira_challs', 'install_one', positional=(name,))
+        ).text('mira_challs_install_button').render_html()

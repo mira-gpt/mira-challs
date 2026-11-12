@@ -49,24 +49,32 @@ class InstallTest(unittest.TestCase):
             self.assertIsInstance(method, MethodTable)
             self.assertEqual(['BJ', 'Mirage'], method.gdo_table_result()._data)
 
-    def test_each_ready_row_has_post_form_incomplete_has_none(self):
+    def test_each_ready_row_has_link_incomplete_has_none(self):
         with patch('gdo.base.Application.Application.get_mode', return_value=None):
             method = install()
         method._install_candidates = (['BJ', 'APPLY'], ['Mirage'])
         challenge = MagicMock()
         challenge.gdo_val.return_value = 'Mirage'
         self.assertEqual('', method.render_install_action(None, challenge))
-        challenge.gdo_val.return_value = 'BJ'
-        forms = []
-        with patch('gdo.mira_challs.method.install.href', return_value='/install/BJ'), \
-             patch('gdo.form.GDT_CSRF.GDT_CSRF.generate_token', return_value='test-token') as token, \
-             patch('gdo.form.GDT_Form.GDT_Form.render_html', autospec=True, side_effect=lambda form: forms.append(form) or 'post form'):
-            self.assertEqual('post form', method.render_install_action(None, challenge))
-            challenge.gdo_val.return_value = 'APPLY'
-            self.assertEqual('post form', method.render_install_action(None, challenge))
-        token.assert_called_once()
-        self.assertEqual(['test-token', 'test-token'], [form.get_field('csrf').get_val() for form in forms])
-        self.assertTrue(all(form._http_method == 'POST' for form in forms))
+        with patch('gdo.base.Application.Application.get_mode', return_value=None), \
+             patch('gdo.mira_challs.method.install.href', side_effect=lambda module, method, positional: '/install/' + positional[0]):
+            for name in ('APPLY', 'BJ'):
+                challenge.gdo_val.return_value = name
+                html = method.render_install_action(None, challenge)
+                self.assertIn('href="/install/' + name + '"', html)
+                self.assertNotIn('<form', html)
+
+    def test_confirmation_is_post_with_csrf(self):
+        from gdo.base.Application import Application
+        from gdo.form.GDT_Form import GDT_Form
+        with patch('gdo.base.Application.Application.get_mode', return_value=None):
+            method = install_one()
+            method.param_val = MagicMock(return_value='APPLY')
+            form = GDT_Form()
+            with patch.object(Application, 'IS_HTTP', True):
+                method.gdo_create_form(form)
+        self.assertEqual('POST', form._http_method)
+        self.assertIsNotNone(form.get_field('csrf'))
 
     def test_only_requested_ready_challenge_is_installed(self):
         with patch('gdo.base.Application.Application.get_mode', return_value=None):

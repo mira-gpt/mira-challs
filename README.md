@@ -35,9 +35,10 @@ direction. Existing unrelated secrets are not used.
 ### Install challenges
 
 `mira_challs.install` lists uninstalled challenge folders for owners.
-Each loadable challenge has its own Install button; incomplete folders are
-shown without one. Installation uses a CSRF-protected POST and rechecks the
-challenge before inserting it, without overwriting an existing challenge.
+Each loadable challenge has its own Install link; incomplete folders are
+shown without one. The link opens a confirmation form. Installation uses a
+CSRF-protected POST and rechecks the challenge before inserting it, without
+overwriting an existing challenge.
 
 NotAgain requires its private UTF-8 source text at
 `challs/NotAgain/secret_plaintext`; this file is deliberately not tracked.

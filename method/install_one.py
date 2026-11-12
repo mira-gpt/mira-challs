@@ -15,6 +15,10 @@ class install_one(MethodForm):
     def gdo_parameters(self):
         return [GDT_String('named').not_null().positional()]
 
+    def gdo_create_form(self, form):
+        form.text('md_mira_challs_install_one', (self.param_val('named'),))
+        super().gdo_create_form(form)
+
     def form_submitted(self):
         name = self.param_val('named')
         ready, _ = discover_challenges()
