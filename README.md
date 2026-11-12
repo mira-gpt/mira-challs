@@ -58,6 +58,38 @@ selected user. The challenge page links to the approval form for admins only.
 
 Browse Mira's challenges.
 
+### Ranking
+
+`mira_challs.ranking` lists accounts with at least one completed challenge,
+ordered by challenge points descending and account ID ascending as a stable
+tie-breaker. Begun but unsolved attempts do not count.
+
+### WeChall integration
+
+The optional inbound WeChall endpoints are disabled by default. Once the
+module config has been updated, an owner can configure a strong shared
+`wechall_authkey` and enable `wechall_enabled`. Both endpoints require the
+same key and use URL-encoded query arguments:
+
+- `/mira_challs.wechall_validate.txt?username=%USERNAME%&email=%EMAIL%&authkey=%AUTHKEY%`
+  returns exactly `1` for a matching confirmed email, otherwise `0`.
+- `/mira_challs.wechall_score.txt?username=%USERNAME%&authkey=%AUTHKEY%`
+  returns `score:maxscore:challcount:usercount`; unknown users or invalid
+  keys return `0`. User count includes only distinct accounts with at least
+  one completed solve.
+
+The on-site username is the exact PyGDO nickname followed by its lowercase
+server name in braces, e.g. `nickname{web}`. Linked accounts use their
+effective account's confirmed email and completed-solve score. Only installed
+challenges contribute to the maximum. Started but unsolved attempts do not
+contribute to a player's score. Score updates to WeChall are not automatic.
+
+The legacy GET protocol puts the authkey and email in the request URL.
+Do not enable these endpoints until HTTPS and access-log redaction for these
+routes are configured and tested on every proxy and application layer. Never
+publish or commit the shared key. WeChall's site record and its URL templates
+must be configured separately; this code does not register the site.
+
 ## GDTs
 
 Challenge scores range from 1 to 10.

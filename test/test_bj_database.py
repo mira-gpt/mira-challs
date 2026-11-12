@@ -56,6 +56,26 @@ class BJDatabaseTest(unittest.TestCase):
                 self.assertIn('1', overview_object.column('chall_solvercount').render_cell())
                 ordinary = GDO_Challenge.table().select().where("chall_name='BJ'").exec().fetch_assoc()
                 self.assertNotIn('chall_solvercount', ordinary)
+                from gdo.mira_challs.WeChallAPI import score_for
+                with patch('gdo.mira_challs.WeChallAPI.resolve_onsite_user', return_value=user):
+                    self.assertEqual((1, 1, 1, 1), score_for('synthetic{web}'))
+                    db.query("INSERT INTO gdo_challenge (chall_name, chall_score) VALUES ('Second', 3)")
+                    second = db.select("SELECT chall_id FROM gdo_challenge WHERE chall_name='Second'").fetch_val()
+                    db.query(f"INSERT INTO gdo_challengesolved (solve_challenge, solve_user, solve_timestamp, solve_created) VALUES ({int(second)}, 900001, NOW(), NOW())")
+                    self.assertEqual((4, 4, 2, 1), score_for('synthetic{web}'))
+                db.query('CREATE TEMPORARY TABLE gdo_user (user_id INT PRIMARY KEY, user_name VARCHAR(100), user_displayname VARCHAR(100), user_server INT, user_type VARCHAR(20), user_link INT NULL)')
+                db.query('CREATE TEMPORARY TABLE gdo_server (serv_id INT PRIMARY KEY, serv_name VARCHAR(100))')
+                db.query("INSERT INTO gdo_server VALUES (90001, 'Web')")
+                db.query("INSERT INTO gdo_user VALUES (900001, 'Winner', 'Winner', 90001, 'member', NULL), (900002, 'Started', 'Started', 90001, 'member', NULL), (900003, 'Runner', 'Runner', 90001, 'member', NULL)")
+                db.query(f"INSERT INTO gdo_challengesolved (solve_challenge, solve_user, solve_timestamp, solve_created) VALUES ({int(challenge_id)}, 900003, NOW(), NOW())")
+                from gdo.base.Result import ResultType
+                from gdo.mira_challs.method.ranking import ranking
+                rank_method = ranking()
+                rows = list(rank_method.gdo_table_query().exec().iter(ResultType.ASSOC))
+                self.assertEqual(['Winner', 'Runner'], [row['user_name'] for row in rows])
+                self.assertEqual([4, 1], [int(row['chall_points']) for row in rows])
+                self.assertEqual([2, 1], [int(row['chall_solved']) for row in rows])
+                self.assertEqual(2, rank_method.get_num_results())
                 with patch.object(Application, 'IS_HTTP', True), \
                      patch('gdo.form.GDT_CSRF.GDT_CSRF.generate_token', return_value='synthetic'):
                     page_method = MagicMock()
