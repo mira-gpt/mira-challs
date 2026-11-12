@@ -3,11 +3,14 @@ import re
 
 from gdo.base.GDO import GDO
 from gdo.base.GDT import GDT
+from gdo.base.Query import Query
 from gdo.core.GDO_User import GDO_User
 from gdo.core.GDT_AutoInc import GDT_AutoInc
 from gdo.core.GDT_Creator import GDT_Creator
 from gdo.core.GDT_Name import GDT_Name
 from gdo.core.GDT_String import GDT_String
+from gdo.core.GDT_UInt import GDT_UInt
+from gdo.core.GDT_Virtual import GDT_Virtual
 from gdo.date.GDT_Created import GDT_Created
 from gdo.date.Time import Time
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
@@ -24,6 +27,11 @@ class GDO_Challenge(GDO):
             GDT_Name('chall_name').not_null().unique(),
             GDT_String('chall_description').maxlen(128),
             GDT_Score('chall_score').min(1).max(10).initial('1'),
+            GDT_Virtual(GDT_UInt('chall_solvercount')).query(Query().raw(
+                'SELECT COUNT(*) FROM gdo_challengesolved '
+                'WHERE solve_challenge = gdo_challenge.chall_id '
+                'AND solve_timestamp IS NOT NULL'
+            )),
             GDT_ChallSecret('chall_secret'),
             GDT_Creator('chall_creator'),
             GDT_Created('chall_created'),

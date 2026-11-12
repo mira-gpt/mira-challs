@@ -47,6 +47,15 @@ class BJDatabaseTest(unittest.TestCase):
                 self.assertEqual('msg_mira_challs_already_solved', method.form_submitted())
                 row = db.select('SELECT COUNT(*) AS n FROM gdo_challengesolved WHERE solve_timestamp IS NOT NULL').fetch_assoc()
                 self.assertEqual(1, int(row['n']))
+                challenge_id = GDO_Challenge.table().get_by_vals({'chall_name': 'BJ'}).get_id()
+                db.query(f"INSERT INTO gdo_challengesolved (solve_challenge, solve_user, solve_created) VALUES ({int(challenge_id)}, 900002, NOW())")
+                from gdo.mira_challs.method.challenges import challenges
+                overview = challenges().gdo_table_query().where("chall_name='BJ'").exec().fetch_assoc()
+                self.assertEqual(1, int(overview['chall_solvercount']))
+                overview_object = challenges().gdo_table_query().where("chall_name='BJ'").exec().fetch_object()
+                self.assertIn('1', overview_object.column('chall_solvercount').render_cell())
+                ordinary = GDO_Challenge.table().select().where("chall_name='BJ'").exec().fetch_assoc()
+                self.assertNotIn('chall_solvercount', ordinary)
                 with patch.object(Application, 'IS_HTTP', True), \
                      patch('gdo.form.GDT_CSRF.GDT_CSRF.generate_token', return_value='synthetic'):
                     page_method = MagicMock()
