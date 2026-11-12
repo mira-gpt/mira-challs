@@ -50,6 +50,10 @@ Errection similarly requires the local files `challs/Errection/secret_message`
 and `secret_plaintext`. The former is displayed to players; the latter is the
 corrected message used to create the installed answer hash. Keep them in sync.
 
+Supreme requires its case-sensitive answer in the private UTF-8 file
+`challs/Supreme/secret_answer`. Installation stores a bcrypt hash of the answer;
+the file is ignored by Git and must be provisioned separately on each install.
+
 APPLY is reviewed manually. After reviewing a submission, an administrator can
 use `mira_challs.apply_approve` to mark the installed challenge solved for a
 selected user. The challenge page links to the approval form for admins only.
