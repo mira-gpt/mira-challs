@@ -18,9 +18,10 @@ def secret_answer():
 
 
 class Mirage(GDO_Challenge):
+    _score = 4
+
     def install_values(self):
-        return {'chall_name': type(self).__name__,
-                'chall_secret': GDT_ChallSecret.hash(secret_answer())}
+        return {**super().install_values(), 'chall_secret': GDT_ChallSecret.hash(secret_answer())}
 
     def check_answer(self, answer):
         if not isinstance(answer, str) or len(answer.lower().encode('utf-8')) > 72:

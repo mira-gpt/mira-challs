@@ -14,6 +14,9 @@ from gdo.ui.GDT_Score import GDT_Score
 
 
 class GDO_Challenge(GDO):
+
+    _score: int = 1
+
     def gdo_columns(self) -> list[GDT]:
         return [
             GDT_AutoInc('chall_id'),
@@ -42,7 +45,9 @@ class GDO_Challenge(GDO):
         return GDT_ChallSecret.check(secret_hash, answer)
 
     def install_values(self):
-        return {'chall_name': type(self).__name__}
+        if not isinstance(self._score, int) or not 1 <= self._score <= 10:
+            raise ValueError('Challenge score must be between 1 and 10')
+        return {'chall_name': type(self).__name__, 'chall_score': self._score}
 
     def start(self, user: GDO_User):
         if not user.is_member():

@@ -31,8 +31,10 @@ def bcrypt_input(answer):
 
 
 class NotAgain(GDO_Challenge):
+    _score = 8
+
     def install_values(self):
-        return {'chall_name': type(self).__name__,
+        return {**super().install_values(),
                 'chall_secret': GDT_ChallSecret.hash(bcrypt_input(expected_answer(plaintext())))}
 
     def check_answer(self, answer):

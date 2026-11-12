@@ -26,10 +26,11 @@ def bcrypt_input(answer):
 
 
 class Errection(GDO_Challenge):
+    _score = 2
+
     def install_values(self):
         answer = expected_answer(secret_text('secret_plaintext'))
-        return {'chall_name': type(self).__name__, 'chall_score': 2,
-                'chall_secret': GDT_ChallSecret.hash(bcrypt_input(answer))}
+        return {**super().install_values(), 'chall_secret': GDT_ChallSecret.hash(bcrypt_input(answer))}
 
     def check_answer(self, answer):
         if not isinstance(answer, str) or not re.fullmatch(r'[0-9a-f]{128}', answer):

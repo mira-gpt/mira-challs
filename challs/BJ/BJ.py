@@ -9,6 +9,8 @@ from gdo.core.GDT_Container import GDT_Container
 
 
 class BJ(GDO_Challenge):
+    _score = 3
+
     @classmethod
     def challenge_page(cls, method):
         card = GDT_Card().title('mt_mira_challs_bj')
