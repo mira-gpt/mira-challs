@@ -12,6 +12,7 @@ from gdo.core.GDT_String import GDT_String
 from gdo.core.GDT_UInt import GDT_UInt
 from gdo.core.GDT_Virtual import GDT_Virtual
 from gdo.date.GDT_Created import GDT_Created
+from gdo.date.GDT_Timestamp import GDT_Timestamp
 from gdo.date.Time import Time
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
 from gdo.ui.GDT_Score import GDT_Score
@@ -31,6 +32,18 @@ class GDO_Challenge(GDO):
                 'SELECT COUNT(*) FROM gdo_challengesolved '
                 'WHERE solve_challenge = gdo_challenge.chall_id '
                 'AND solve_timestamp IS NOT NULL'
+            )),
+            GDT_Virtual(GDT_String('chall_last_solver')).query(Query().raw(
+                "SELECT CONCAT(u.user_name, '{', LOWER(server.serv_name), '}') "
+                'FROM gdo_challengesolved AS s '
+                'JOIN gdo_user AS u ON u.user_id = s.solve_user '
+                'JOIN gdo_server AS server ON server.serv_id = u.user_server '
+                'WHERE s.solve_challenge = gdo_challenge.chall_id AND s.solve_timestamp IS NOT NULL '
+                'ORDER BY s.solve_timestamp DESC, s.solve_user ASC LIMIT 1'
+            )),
+            GDT_Virtual(GDT_Timestamp('chall_last_solved').date_format(Time.FMT_LONG)).query(Query().raw(
+                'SELECT MAX(solve_timestamp) FROM gdo_challengesolved '
+                'WHERE solve_challenge = gdo_challenge.chall_id AND solve_timestamp IS NOT NULL'
             )),
             GDT_ChallSecret('chall_secret'),
             GDT_Creator('chall_creator'),

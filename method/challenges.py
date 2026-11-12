@@ -13,13 +13,18 @@ class challenges(MethodQueryTable):
 
     def gdo_table_headers(self):
         columns = self.gdo_table().columns()
-        return [columns['chall_name'], columns['chall_score'], columns['chall_solvercount']]
+        return [columns['chall_name'], columns['chall_score'], columns['chall_solvercount'],
+                columns['chall_created'].copy_as().label('chall_age'),
+                columns['chall_last_solver'], columns['chall_last_solved']]
 
     def gdo_table_query(self):
         # A started attempt has no timestamp and is not a solve. Do not cache
         # result objects containing this derived value: it changes independently.
         table = self.gdo_table()
-        return table.column('chall_solvercount').select_into(table.select()).nocache()
+        query = table.select()
+        for name in ('chall_solvercount', 'chall_last_solver', 'chall_last_solved'):
+            table.column(name).select_into(query)
+        return query.nocache()
 
     def gdo_order_default(self):
         return 'chall_name ASC'

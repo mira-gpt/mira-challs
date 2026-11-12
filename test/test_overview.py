@@ -12,12 +12,17 @@ class OverviewTest(unittest.TestCase):
 
     def test_public_query_table_exposes_only_public_columns(self):
         table = MagicMock()
+        created = MagicMock()
+        created.copy_as.return_value.label.return_value = 'age'
         table.columns.return_value = {'chall_name': 'name', 'chall_score': 'score',
-                                      'chall_solvercount': 'solvers', 'chall_secret': 'secret'}
+                                      'chall_solvercount': 'solvers', 'chall_secret': 'secret',
+                                      'chall_created': created, 'chall_last_solver': 'last solver',
+                                      'chall_last_solved': 'last solved'}
         with patch('gdo.mira_challs.method.challenges.GDO_Challenge.table', return_value=table):
             self.assertIsInstance(self.method, MethodQueryTable)
             self.assertFalse(self.method.gdo_needs_authentication())
-            self.assertEqual(self.method.gdo_table_headers(), ['name', 'score', 'solvers'])
+            self.assertEqual(self.method.gdo_table_headers(),
+                             ['name', 'score', 'solvers', 'age', 'last solver', 'last solved'])
 
     def test_solver_count_is_derived_and_not_cached(self):
         table = MagicMock()
@@ -26,8 +31,9 @@ class OverviewTest(unittest.TestCase):
         query.nocache.return_value = query
         with patch.object(self.method, 'gdo_table', return_value=table):
             self.assertIs(query, self.method.gdo_table_query())
-        table.column.assert_called_once_with('chall_solvercount')
-        table.column.return_value.select_into.assert_called_once_with(query)
+        self.assertEqual([call.args[0] for call in table.column.call_args_list],
+                         ['chall_solvercount', 'chall_last_solver', 'chall_last_solved'])
+        self.assertEqual(3, table.column.return_value.select_into.call_count)
         query.nocache.assert_called_once()
 
     def test_challenge_name_links_to_named_route(self):
