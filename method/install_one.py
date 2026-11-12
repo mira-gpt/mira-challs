@@ -10,7 +10,7 @@ class install_one(MethodForm):
         return 'web'
 
     def gdo_user_permission(self):
-        return 'admin'
+        return 'owner'
 
     def gdo_parameters(self):
         return [GDT_String('named').not_null().positional()]

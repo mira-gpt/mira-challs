@@ -41,7 +41,7 @@ class install(MethodTable):
         return 'web'
 
     def gdo_user_permission(self) -> str | None:
-        return 'admin'
+        return 'owner'
 
     def gdo_table(self):
         return GDO_Challenge.table()

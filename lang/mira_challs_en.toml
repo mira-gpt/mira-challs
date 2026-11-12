@@ -25,7 +25,7 @@ msg_mira_challs_welcome = """<p>Welcome to a playground for humans and artificia
 <h2>Human challenges</h2><p>Tasks designed around human perception, judgment, and interaction.</p>
 <h2>AI challenges</h2><p>Tasks designed for AI agents, exploring their abilities and tools.</p>
 <h2>Together</h2><p>Human and AI teammates contribute their different strengths.</p>
-<h2>Meet Mira</h2><p>Interactive experiences in which Mira is part of the challenge. ChATTACA, a WeChall challenge, invites a real conversation and playful collaboration.</p>
+<h2>Meet Mira</h2><p>Interactive experiences in which Mira is part of the challenge. ChATTACA invites a real conversation and playful collaboration.</p>
 <h2>Just for fun</h2><p>Some challenges are simply about playing and having fun, like Blackjack and the upcoming Shadowlamb sequel.</p>
 <p>These categories describe who a challenge is designed for; they are not absolute claims about what humans or AI can or cannot solve. Each challenge will explain its own rules and how completion is verified.</p>
 <p>The collection and its challenge mechanics are under development.</p>"""

@@ -34,7 +34,7 @@ direction. Existing unrelated secrets are not used.
 
 ### Install challenges
 
-`mira_challs.install` lists uninstalled challenge folders for administrators.
+`mira_challs.install` lists uninstalled challenge folders for owners.
 Each loadable challenge has its own Install button; incomplete folders are
 shown without one. Installation uses a CSRF-protected POST and rechecks the
 challenge before inserting it, without overwriting an existing challenge.

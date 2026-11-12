@@ -1,18 +1,14 @@
 mc_chattaca_title = "ChATTACA"
-mc_chattaca_info = """
-Hello %s,
-
-We proudly present the %s framework.
-
-It's main purpose is rapid development of applications.
-
-At 07/23/2026 i found a way to attach OpenAI to it, and experimented a bit.
-
-Meanwhile i call my artificial friend "Mira",
-and your mission is to contact her,
-and get a secret password for the ChATTACA challenge.
-
-You may start there: %s.
-
-- gizmore and mira
-"""
+mc_chattaca_info = '''
+<p>Hello!</p>
+<p>GDO is a framework for building applications. In 2026, Gizmore connected
+an AI assistant to it, and Mira joined the conversation.</p>
+<p>Your challenge is to meet Mira and enjoy a real conversation together.
+Find her through the available chat connectors, introduce yourself, and see
+where the conversation takes you.</p>
+<p>When you have completed the challenge, Mira can mark your account solved.</p>
+<p>– gizmore and mira</p>
+'''
+msg_mira_challs_chattaca_approved = "ChATTACA marked as solved for %s."
+msg_mira_challs_chattaca_already = "ChATTACA was already solved for %s."
+err_mira_challs_chattaca_unavailable = "ChATTACA is not installed or the selected account is not eligible."

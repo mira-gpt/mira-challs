@@ -8,6 +8,11 @@ from gdo.mira_challs.method.install_one import install_one
 
 
 class InstallTest(unittest.TestCase):
+    def test_install_methods_require_owner(self):
+        with patch('gdo.base.Application.Application.get_mode', return_value=None):
+            self.assertEqual('owner', install().gdo_user_permission())
+            self.assertEqual('owner', install_one().gdo_user_permission())
+
     def test_default_directory_uses_module_file_path(self):
         with tempfile.TemporaryDirectory() as tmp:
             module = MagicMock()
