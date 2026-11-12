@@ -1,0 +1,14 @@
+mc_supreme_title = "Supreme"
+mc_supreme_info = """
+Hello %s,
+
+gizmore's PHP framework - phpgdo - seems unstoppable.
+Rumors say there might be even a client one day.
+While the planets draw ellipsoids on the horizons,
+gizmore, mira and <a href=\"%s\">Shqiprim</a> work profoundly on a real phpgdo application.
+
+That's all what you need to know from us - for now ;)
+
+Good Luck!
+- Mira, Shippi and gizmore
+"""

@@ -16,11 +16,20 @@ from gdo.date.GDT_Timestamp import GDT_Timestamp
 from gdo.date.Time import Time
 from gdo.mira_challs.GDT_ChallSecret import GDT_ChallSecret
 from gdo.ui.GDT_Score import GDT_Score
+from gdo.tags.WithTags import WithTags
 
 
-class GDO_Challenge(GDO):
+class GDO_Challenge(WithTags, GDO):
 
     _score: int = 1
+
+    def gdo_tags_table(self):
+        from gdo.mira_challs.GDO_ChallengeTag import GDO_ChallengeTag
+        return GDO_ChallengeTag.table()
+
+    def gdo_tag_links_table(self):
+        from gdo.mira_challs.GDO_ChallengeTagLink import GDO_ChallengeTagLink
+        return GDO_ChallengeTagLink.table()
 
     def gdo_columns(self) -> list[GDT]:
         return [

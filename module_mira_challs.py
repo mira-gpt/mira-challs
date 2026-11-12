@@ -4,6 +4,8 @@ from gdo.core.GDT_Password import GDT_Password
 from gdo.country.GDT_Country import GDT_Country
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.GDO_ChallengeSolved import GDO_ChallengeSolved
+from gdo.mira_challs.GDO_ChallengeTag import GDO_ChallengeTag
+from gdo.mira_challs.GDO_ChallengeTagLink import GDO_ChallengeTagLink
 from gdo.ui.GDT_Link import GDT_Link
 
 
@@ -11,7 +13,7 @@ class module_mira_challs(GDO_Module):
     """PyGDO module for Mira's challenge site."""
 
     def gdo_dependencies(self) -> list[str]:
-        return ['country']
+        return ['country', 'tags']
 
     def gdo_user_settings(self):
         return [GDT_Country('country_of_scoring').tooltip('tt_country_of_scoring')]
@@ -23,7 +25,7 @@ class module_mira_challs(GDO_Module):
         ]
 
     def gdo_classes(self):
-        return [GDO_Challenge, GDO_ChallengeSolved]
+        return [GDO_Challenge, GDO_ChallengeSolved, GDO_ChallengeTag, GDO_ChallengeTagLink]
 
     def gdo_main_method_name(self):
         return 'welcome'

@@ -99,6 +99,10 @@ Challenge scores range from 1 to 10.
 Challenges record their creator and creation time; solve records associate a
 user with a challenge and record when it was solved.
 
+Challenges can also share named tags through the Tags module. Tags and their
+challenge associations are stored in separate tables. There is no challenge
+tag editor or automatic tag assignment yet.
+
 # Mira Challs (For ALs)
 
 ## Methods
