@@ -60,13 +60,15 @@ class WeChallAPITest(unittest.TestCase):
         user.get_id.return_value = '42'
         db = MagicMock()
         db.select.side_effect = [MagicMock(fetch_val=MagicMock(return_value=value))
-                                 for value in (3, 10, 2, 4)]
+                                 for value in (3, 10, 1, 2, 4)]
         with patch.object(api, 'resolve_onsite_user', return_value=user), \
              patch.object(api.Application, 'db', return_value=db):
-            self.assertEqual((3, 10, 2, 4), api.score_for('x{web}'))
+            self.assertEqual((3, 10, 1, 2, 4), api.score_for('x{web}'))
         self.assertIn('s.solve_timestamp IS NOT NULL', db.select.call_args_list[0].args[0])
-        self.assertIn('COUNT(DISTINCT s.solve_user)', db.select.call_args_list[3].args[0])
-        self.assertIn('s.solve_timestamp IS NOT NULL', db.select.call_args_list[3].args[0])
+        self.assertIn('COUNT(DISTINCT s.solve_challenge)', db.select.call_args_list[2].args[0])
+        self.assertIn('s.solve_timestamp IS NOT NULL', db.select.call_args_list[2].args[0])
+        self.assertIn('COUNT(DISTINCT s.solve_user)', db.select.call_args_list[4].args[0])
+        self.assertIn('s.solve_timestamp IS NOT NULL', db.select.call_args_list[4].args[0])
 
     def test_endpoint_fails_closed(self):
         with patch('gdo.base.Application.Application.get_mode', return_value=None):
@@ -76,6 +78,18 @@ class WeChallAPITest(unittest.TestCase):
                 with patch('gdo.base.Application.Application.header'), \
                      patch('gdo.mira_challs.method.' + cls.__name__ + '.authorized', return_value=False):
                     self.assertEqual('0', method.gdo_execute().render_txt())
+
+    def test_zero_solves_and_unknown_user(self):
+        user = MagicMock()
+        user.get_id.return_value = '42'
+        db = MagicMock()
+        db.select.side_effect = [MagicMock(fetch_val=MagicMock(return_value=value))
+                                 for value in (0, 10, 0, 2, 4)]
+        with patch.object(api, 'resolve_onsite_user', return_value=user), \
+             patch.object(api.Application, 'db', return_value=db):
+            self.assertEqual((0, 10, 0, 2, 4), api.score_for('x{web}'))
+        with patch.object(api, 'resolve_onsite_user', return_value=None):
+            self.assertIsNone(api.score_for('missing{web}'))
 
     def test_endpoints_return_plain_protocol_values(self):
         with patch('gdo.base.Application.Application.get_mode', return_value=None), \
@@ -92,5 +106,5 @@ class WeChallAPITest(unittest.TestCase):
                 'authkey': 'key', 'username': 'Ada{web}'
             }[name])
             with patch('gdo.mira_challs.method.wechall_score.authorized', return_value=True), \
-                 patch('gdo.mira_challs.method.wechall_score.score_for', return_value=(3, 10, 2, 4)):
-                self.assertEqual('3:10:2:4', score.gdo_execute().render_txt())
+                 patch('gdo.mira_challs.method.wechall_score.score_for', return_value=(3, 10, 1, 2, 4)):
+                self.assertEqual('3:10:1:2:4', score.gdo_execute().render_txt())

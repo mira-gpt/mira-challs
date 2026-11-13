@@ -66,14 +66,14 @@ class BJDatabaseTest(unittest.TestCase):
                 self.assertNotIn('chall_solvercount', ordinary)
                 from gdo.mira_challs.WeChallAPI import score_for
                 with patch('gdo.mira_challs.WeChallAPI.resolve_onsite_user', return_value=user):
-                    self.assertEqual((1, 1, 1, 1), score_for('synthetic{web}'))
+                    self.assertEqual((1, 1, 1, 1, 1), score_for('synthetic{web}'))
                     db.query("INSERT INTO gdo_challenge (chall_name, chall_score) VALUES ('Second', 3)")
                     second = db.select("SELECT chall_id FROM gdo_challenge WHERE chall_name='Second'").fetch_val()
                     unsolved = challenges().gdo_table_query().where("chall_name='Second'").exec().fetch_assoc()
                     self.assertIsNone(unsolved['chall_last_solver'])
                     self.assertIsNone(unsolved['chall_last_solved'])
                     db.query(f"INSERT INTO gdo_challengesolved (solve_challenge, solve_user, solve_timestamp, solve_created) VALUES ({int(second)}, 900001, NOW(), NOW())")
-                    self.assertEqual((4, 4, 2, 1), score_for('synthetic{web}'))
+                    self.assertEqual((4, 4, 2, 2, 1), score_for('synthetic{web}'))
                 db.query(f"INSERT INTO gdo_challengesolved (solve_challenge, solve_user, solve_timestamp, solve_created) VALUES ({int(challenge_id)}, 900003, NOW(), NOW())")
                 from gdo.base.Result import ResultType
                 from gdo.mira_challs.method.ranking import ranking

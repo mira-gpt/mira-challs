@@ -78,9 +78,12 @@ same key and use URL-encoded query arguments:
 - `/mira_challs.wechall_validate.txt?username=%USERNAME%&email=%EMAIL%&authkey=%AUTHKEY%`
   returns exactly `1` for a matching confirmed email, otherwise `0`.
 - `/mira_challs.wechall_score.txt?username=%USERNAME%&authkey=%AUTHKEY%`
-  returns `score:maxscore:challcount:usercount`; unknown users or invalid
+  returns `score:maxscore:challssolved:challcount:usercount`; unknown users or invalid
   keys return `0`. User count includes only distinct accounts with at least
   one completed solve.
+
+The WeChall site response parser must be configured for this five-field order;
+the earlier four-field format did not include the individual solved count.
 
 The on-site username is the exact PyGDO nickname followed by its lowercase
 server name in braces, e.g. `nickname{web}`. Linked accounts use their

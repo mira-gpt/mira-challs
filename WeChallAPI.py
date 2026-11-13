@@ -67,10 +67,16 @@ def score_for(onsitename):
         f'WHERE s.solve_user = {int(user.get_id())} AND s.solve_timestamp IS NOT NULL'
     ).fetch_val()
     maximum = db.select('SELECT COALESCE(SUM(chall_score), 0) FROM gdo_challenge').fetch_val()
+    solved_count = db.select(
+        'SELECT COUNT(DISTINCT s.solve_challenge) FROM gdo_challengesolved AS s '
+        'JOIN gdo_challenge AS c ON c.chall_id = s.solve_challenge '
+        f'WHERE s.solve_user = {int(user.get_id())} AND s.solve_timestamp IS NOT NULL'
+    ).fetch_val()
     challenge_count = db.select('SELECT COUNT(*) FROM gdo_challenge').fetch_val()
     user_count = db.select(
         'SELECT COUNT(DISTINCT s.solve_user) FROM gdo_challengesolved AS s '
         'JOIN gdo_challenge AS c ON c.chall_id = s.solve_challenge '
         'WHERE s.solve_timestamp IS NOT NULL'
     ).fetch_val()
-    return int(score or 0), int(maximum or 0), int(challenge_count or 0), int(user_count or 0)
+    return (int(score or 0), int(maximum or 0), int(solved_count or 0),
+            int(challenge_count or 0), int(user_count or 0))
