@@ -11,6 +11,9 @@ from gdo.core.GDT_Container import GDT_Container
 class BJ(GDO_Challenge):
     _score = 3
 
+    def get_challenge_tags(self) -> str:
+        return 'challenge,math,fun'
+
     @classmethod
     def challenge_page(cls, method):
         card = GDT_Card().title('mt_mira_challs_bj')

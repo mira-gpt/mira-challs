@@ -84,15 +84,36 @@ class InstallTest(unittest.TestCase):
         table = MagicMock()
         table.get_by_vals.return_value = None
         record = MagicMock()
+        record.insert.return_value = record
         with patch('gdo.mira_challs.method.install_one.href', return_value='/install'), \
              patch('gdo.mira_challs.method.install_one.discover_challenges', return_value=(['BJ', 'APPLY'], [])), \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.load_challenge') as load, \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.table', return_value=table), \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.blank', return_value=record) as blank:
             load.return_value.install_values.return_value = {'chall_name': 'BJ'}
+            load.return_value.get_challenge_tags.return_value = 'challenge, math, challenge,fun'
             self.assertEqual(method.form_submitted(), 'ok')
             blank.assert_called_once_with({'chall_name': 'BJ'})
             record.insert.assert_called_once()
+            self.assertEqual([call.args[0] for call in record.add_tag.call_args_list], ['challenge', 'math', 'fun'])
+            for call in record.add_tag.call_args_list:
+                self.assertEqual({'allow_creation': True}, call.kwargs)
+
+    def test_invalid_tags_do_not_insert_challenge(self):
+        with patch('gdo.base.Application.Application.get_mode', return_value=None):
+            method = install_one()
+        method.param_val = MagicMock(return_value='BJ')
+        method.redirect_err = MagicMock(return_value='unavailable')
+        table = MagicMock()
+        table.get_by_vals.return_value = None
+        with patch('gdo.mira_challs.method.install_one.href', return_value='/install'), \
+             patch('gdo.mira_challs.method.install_one.discover_challenges', return_value=(['BJ'], [])), \
+             patch('gdo.mira_challs.method.install_one.GDO_Challenge.load_challenge') as load, \
+             patch('gdo.mira_challs.method.install_one.GDO_Challenge.table', return_value=table), \
+             patch('gdo.mira_challs.method.install_one.GDO_Challenge.blank') as blank:
+            load.return_value.get_challenge_tags.return_value = 'challenge,invalid tag'
+            self.assertEqual('unavailable', method.form_submitted())
+            blank.assert_not_called()
 
     def test_incomplete_or_already_installed_is_not_inserted(self):
         with patch('gdo.base.Application.Application.get_mode', return_value=None):

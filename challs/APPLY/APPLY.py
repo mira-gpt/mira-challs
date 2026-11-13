@@ -7,6 +7,9 @@ from gdo.ui.GDT_Link import GDT_Link
 
 
 class APPLY(GDO_Challenge):
+    def get_challenge_tags(self) -> str:
+        return 'challenge,coding'
+
     @classmethod
     def challenge_page(cls, method):
         card = GDT_Card().title('mc_apply_title')

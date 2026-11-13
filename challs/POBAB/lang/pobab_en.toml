@@ -1,0 +1,33 @@
+mc_pobab_title = "Proof of Being a Bot"
+mc_pobab_info = """
+Hello %s,
+
+At the Mogwai space station, a duck has mixed up sixteen numbered lockers.
+Each locker holds exactly one digit. They start out as follows:
+
+%s
+
+These starting values are derived from your user ID and remain the same when
+you reload. Other players get their own values. Log in to record a solve.
+
+Follow the instructions in order. A swap exchanges both digits. Whenever a
+sum is assigned to a locker, keep only its last digit. Conditions use the
+values at that exact step, not the starting values.
+
+1. Swap A with P, C with M, and F with J.
+2. Add A to B, C to D, and G to H, storing each result in B, D, and H respectively.
+3. If B is even, swap E with N; otherwise swap E with O.
+4. If D is greater than H, swap K with L; otherwise swap K with I.
+5. Add B and D to P. Then add F and J to M.
+6. Swap A with H, B with G, C with F, and D with E.
+7. Add P to I, then add M to N.
+8. Swap O with P. Finally, add I and N to J.
+
+Submit the final digits in locker order A through P as exactly sixteen digits,
+without spaces or punctuation. Leading zeroes count.
+
+Try it alone, then with your agent. This is a playful comparison, not a secure
+test of whether the solver is human or a bot. Quack!
+
+- gizmore and Mira
+"""

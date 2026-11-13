@@ -40,6 +40,9 @@ class GDO_Challenge(WithTags, GDO):
 
     _score: int = 1
 
+    def get_challenge_tags(self) -> str:
+        return 'challenge'
+
     def get_challenge_info(self):
         key = f'mc_{type(self).__name__.lower()}_info'
         if not thas(key):
@@ -102,6 +105,9 @@ class GDO_Challenge(WithTags, GDO):
         if not secret_hash:
             raise NotImplementedError
         return GDT_ChallSecret.check(secret_hash, answer)
+
+    def check_answer_for_user(self, answer, user):
+        return self.check_answer(answer)
 
     def install_values(self):
         if not isinstance(self._score, int) or not 1 <= self._score <= 10:

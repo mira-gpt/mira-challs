@@ -28,6 +28,9 @@ def bcrypt_input(answer):
 class Errection(GDO_Challenge):
     _score = 2
 
+    def get_challenge_tags(self) -> str:
+        return 'challenge,crypto'
+
     def install_values(self):
         answer = expected_answer(secret_text('secret_plaintext'))
         return {**super().install_values(), 'chall_secret': GDT_ChallSecret.hash(bcrypt_input(answer))}

@@ -3,6 +3,7 @@ from gdo.core.GDT_String import GDT_String
 from gdo.form.MethodForm import MethodForm
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.method.install import discover_challenges
+from gdo.tags.GDT_Tags import GDT_Tags
 
 
 class install_one(MethodForm):
@@ -26,8 +27,12 @@ class install_one(MethodForm):
         if name not in ready or GDO_Challenge.table().get_by_vals({'chall_name': name}):
             return self.redirect_err(destination, 'err_mira_challs_install_unavailable', (name,))
         try:
-            values = GDO_Challenge.load_challenge(name).install_values()
+            challenge = GDO_Challenge.load_challenge(name)
+            values = challenge.install_values()
+            tags = GDT_Tags.parse_names(challenge.get_challenge_tags())
         except (OSError, ValueError):
             return self.redirect_err(destination, 'err_mira_challs_install_unavailable', (name,))
-        GDO_Challenge.blank(values).insert()
+        record = GDO_Challenge.blank(values).insert()
+        for tag in tags:
+            record.add_tag(tag, allow_creation=True)
         return self.redirect_msg(destination, 'msg_mira_challs_installed', (name,))

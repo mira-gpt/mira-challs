@@ -22,7 +22,7 @@ class solve(MethodForm):
             return self.err('err_mira_challs_solve_unavailable')
         answer = self.get_form().get_field('answer').get_val()
         try:
-            valid = challenge.check_answer(answer)
+            valid = challenge.check_answer_for_user(answer, self._env_user)
         except (NotImplementedError, ValueError, OSError):
             return self.err('err_mira_challs_solve_unavailable')
         if not valid:

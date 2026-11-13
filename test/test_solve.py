@@ -13,6 +13,7 @@ class SolveTest(unittest.TestCase):
         Application.mode(Mode.render_html)
         self.method = solve()
         self.challenge = MagicMock()
+        self.challenge.check_answer_for_user.side_effect = lambda answer, user: self.challenge.check_answer(answer)
         self.record = MagicMock()
         self.record.get_id.return_value = '12'
         self.challenge.on_solved.return_value = True

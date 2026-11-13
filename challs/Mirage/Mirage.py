@@ -20,6 +20,9 @@ def secret_answer():
 class Mirage(GDO_Challenge):
     _score = 4
 
+    def get_challenge_tags(self) -> str:
+        return 'challenge,forensic'
+
     def install_values(self):
         return {**super().install_values(), 'chall_secret': GDT_ChallSecret.hash(secret_answer())}
 
