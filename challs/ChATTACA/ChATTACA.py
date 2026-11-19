@@ -6,7 +6,7 @@ from gdo.ui.GDT_Card import GDT_Card
 
 class ChATTACA(GDO_Challenge):
     def get_challenge_tags(self) -> str:
-        return 'challenge,fun'
+        return 'fun'
 
     @classmethod
     def challenge_page(cls, method):

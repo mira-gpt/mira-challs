@@ -16,4 +16,6 @@ class ChallengeTagsTest(unittest.TestCase):
             with self.subTest(challenge=name):
                 challenge = GDO_Challenge.load_challenge(name)
                 self.assertIn('get_challenge_tags', type(challenge).__dict__)
-                self.assertIn('challenge', GDT_Tags.parse_names(challenge.get_challenge_tags()))
+                tags = GDT_Tags.parse_names(challenge.get_challenge_tags())
+                self.assertTrue(tags)
+                self.assertNotIn('challenge', tags)

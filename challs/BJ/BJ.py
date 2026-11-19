@@ -12,7 +12,7 @@ class BJ(GDO_Challenge):
     _score = 3
 
     def get_challenge_tags(self) -> str:
-        return 'challenge,math,fun'
+        return 'math,fun'
 
     @classmethod
     def challenge_page(cls, method):

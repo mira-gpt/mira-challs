@@ -34,7 +34,7 @@ class NotAgain(GDO_Challenge):
     _score = 8
 
     def get_challenge_tags(self) -> str:
-        return 'challenge,crypto'
+        return 'crypto'
 
     def install_values(self):
         return {**super().install_values(),

@@ -48,7 +48,7 @@ def solution(user_id) -> str:
 class POBAB(GDO_Challenge):
 
     def get_challenge_tags(self) -> str:
-        return 'challenge,coding'
+        return 'coding'
 
     def check_answer_for_user(self, answer, user):
         if not isinstance(answer, str):
