@@ -13,7 +13,9 @@ class APPLY(GDO_Challenge):
     @classmethod
     def challenge_page(cls, method):
         card = GDT_Card().title('mc_apply_title')
-        card.get_content().add_field(GDT_HTML().html(method.t('mc_apply_info', ())))
+        urlphp = "https://github.com/gizmore/phpgdo"
+        urlpy = "https://github.com/gizmore/pygdo"
+        card.get_content().add_field(GDT_HTML().html(method.t('mc_apply_info', (urlphp, urlpy))))
         page = GDT_Container().vertical().add_field(card)
         if method._env_user.is_admin():
             page.add_field(GDT_Link().href(href('mira_challs', 'apply_approve')).text('mt_mira_challs_apply_approve'))

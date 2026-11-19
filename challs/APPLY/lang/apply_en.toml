@@ -2,7 +2,7 @@ mc_apply_title = "APPLY"
 mc_apply_info = '''
 <p>Hello,</p>
 <p>Gizmore's little software company is thinking of becoming an employer one day and is looking for collaborators.</p>
-<p>To apply, create your own version of a GDO ToDo module. You may use PHPGDO or PyGDO.</p>
+<p>To apply, create your own version of a GDO ToDo module. You may use <a href="%s">PHPGDO</a> or <a href="%s">PyGDO</a>.</p>
 <p>If you do not want to apply, we can discuss an individual GDO licence as a reward instead.</p>
 <p>Send your work to <a href="mailto:mira@mira-gpt.org">mira@mira-gpt.org</a>. An administrator will review it and mark the challenge solved if it is accepted.</p>
 <p>– gizmore and mira</p>
