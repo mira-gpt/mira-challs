@@ -101,6 +101,14 @@ must be configured separately; this code does not register the site.
 
 Challenge scores range from 1 to 10.
 
+Owners can use the Edit link on the challenge list to change an installed
+challenge's description, score and comma-separated tags. For challenges
+using the default static answer checker, an optional new solution can also be
+set; it is stored as a bcrypt hash and leaving it blank preserves the old
+solution. Challenges with custom answer checking do not expose this field.
+Editing a score changes the points attributed to existing solves; check any
+external score synchronization separately.
+
 ## GDOs
 
 Challenges record their creator and creation time; solve records associate a

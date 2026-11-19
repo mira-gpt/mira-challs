@@ -2,6 +2,7 @@ from gdo.base.util.href import href
 from gdo.base.Result import ResultType
 from gdo.core.GDT_Container import GDT_Container
 from gdo.core.GDT_UInt import GDT_UInt
+from gdo.core.GDT_String import GDT_String
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.GDO_ChallengeTag import GDO_ChallengeTag
 from gdo.mira_challs.GDO_ChallengeTagLink import GDO_ChallengeTagLink
@@ -39,9 +40,16 @@ class challenges(MethodQueryTable):
 
     def gdo_table_headers(self):
         columns = self.gdo_table().columns()
-        return [columns['chall_name'], columns['chall_score'], columns['chall_solvercount'],
+        headers = [columns['chall_name'], columns['chall_score'], columns['chall_solvercount'],
                 columns['chall_created'].copy_as().label('chall_age'),
                 columns['chall_last_solver'], columns['chall_last_solved']]
+        user = getattr(self, '_env_user', None)
+        if user and user.is_authenticated() and user.has_permission('owner'):
+            headers.append(GDT_String('edit_action').label('mira_challs_edit_action'))
+        return headers
+
+    def render_edit_action(self, field, challenge):
+        return GDT_Link().href(href('mira_challs', 'edit', positional=(challenge.gdo_val('chall_name'),))).text('mira_challs_edit_action').render_html()
 
     def gdo_table_query(self):
         # A started attempt has no timestamp and is not a solve. Do not cache
