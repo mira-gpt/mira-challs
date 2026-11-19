@@ -35,7 +35,7 @@ class Mirage(GDO_Challenge):
     def challenge_page(cls, method):
         username = escape(method._env_user.get_name())
         card = GDT_Card().title('mc_mirage_title')
-        info = method.t('mc_mirage_info', (username, 'https://mogwai.mira-gpt.org/',
+        info = method.t('mc_mirage_info', (username, 'https://mogwai.mira-gpt.org/memedize.overview.html',
                                             'https://youtu.be/Pgmx7z49OEk'))
         card.get_content().add_field(GDT_HTML().html(info))
         return GDT_Container().vertical().add_fields(card, GDT_AnswerBox(challenge_name='Mirage'))
