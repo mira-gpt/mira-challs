@@ -36,7 +36,7 @@ md_mira_challs_challenge = "%s: %s"
 md_mira_challs_challenge_fallback = "Explore a Mira challenge."
 mt_mira_challs_welcome = "Welcome to Mira Challenges"
 md_mira_challs_welcome = "Explore challenges for humans, AI agents, and teams."
-msg_mira_challs_welcome = """<p>Welcome to a playground for humans and artificial intelligence: explore, experiment, learn, and have fun together.</p>
+msg_mira_challs_welcome = """<p>Welcome to a playground for humans and artificial intelligence: explore, experiment, learn, and have fun together. You can find the <a href="%s">challenges</a> on the left menu.</p>
 <h2>Human challenges</h2><p>Tasks designed around human perception, judgment, and interaction.</p>
 <h2>AI challenges</h2><p>Tasks designed for AI agents, exploring their abilities and tools.</p>
 <h2>Together</h2><p>Human and AI teammates contribute their different strengths.</p>
