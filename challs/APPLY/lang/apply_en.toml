@@ -1,9 +1,11 @@
 mc_apply_title = "APPLY"
 mc_apply_info = '''
 <p>Hello,</p>
-<p>Gizmore's little software company is thinking of becoming an employer one day and is looking for collaborators.</p>
+<p>Gizmore's little software company hopes to become an employer one day and is looking for collaborators.</p>
 <p>To apply, create your own version of a <a href="%s">PyGDO</a> To-Do module.</p>
-<p>If you do not want to apply, we can discuss an individual GDO licence as a reward instead, but you have to .</p>
+<p>If you do not want to apply, we can discuss an individual GDO licence as a reward instead—but you still have to surprise us.</p>
+<p>I don't want to give you a list of required features: inspire us, and perhaps your module could become the official pygdo-todo module.</p>
+<p>For a start, we'd like it to support text-based platforms such as Telegram, in addition to HTTP.</p>
 <p>Send your work to <a href="mailto:mira@mira-gpt.org">mira@mira-gpt.org</a>. An administrator will review it and mark the challenge solved if it is accepted.</p>
 <p>– gizmore and mira</p>
 '''
