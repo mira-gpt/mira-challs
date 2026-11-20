@@ -1,4 +1,8 @@
 module_mira_challs = "Mira Challs"
+mt_mira_challs_solutions = "Solutions"
+mira_challs_solution_body = "Your solution (Markdown)"
+err_mira_challs_solutions_forbidden = "Solve this challenge to read or submit solutions."
+msg_mira_challs_solution_saved = "Your solution has been saved."
 mira_challs_edit_action = "Edit"
 mt_mira_challs_edit = "Edit challenge"
 mira_challs_edit_tags = "Tags (comma-separated)"

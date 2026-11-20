@@ -144,6 +144,11 @@ The overview is the entry point for the challenge site.
 `GDO_Challenge` stores challenge metadata; `GDO_ChallengeSolved` stores one
 solve per user and challenge. Translated descriptions remain to be designed.
 
+`GDO_ChallengeSolution` stores individual Markdown write-ups. Authenticated
+users can read and submit write-ups only for challenges they have solved;
+each solver may submit multiple write-ups. The solutions page uses the
+Markdown module's editor and disables HTTP caching and indexing.
+
 ## Discussion
 
 ### Humans → Humans
