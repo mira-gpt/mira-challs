@@ -46,10 +46,14 @@ class challenges(MethodQueryTable):
         user = getattr(self, '_env_user', None)
         if user and user.is_authenticated() and user.has_permission('owner'):
             headers.append(GDT_String('edit_action').label('mira_challs_edit_action'))
+            headers.append(GDT_String('reinstall_action').label('mira_challs_reinstall_action'))
         return headers
 
     def render_edit_action(self, field, challenge):
         return GDT_Link().href(href('mira_challs', 'edit', positional=(challenge.gdo_val('chall_name'),))).text('mira_challs_edit_action').render_html()
+
+    def render_reinstall_action(self, field, challenge):
+        return GDT_Link().href(href('mira_challs', 'reinstall_one', positional=(challenge.gdo_val('chall_name'),))).text('mira_challs_reinstall_action').render_html()
 
     def gdo_table_query(self):
         # A started attempt has no timestamp and is not a solve. Do not cache
