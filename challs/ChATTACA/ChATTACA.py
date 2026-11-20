@@ -5,6 +5,8 @@ from gdo.ui.GDT_Card import GDT_Card
 
 
 class ChATTACA(GDO_Challenge):
+    _score = 2
+
     def get_challenge_tags(self) -> str:
         return 'fun'
 

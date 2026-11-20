@@ -149,6 +149,12 @@ users can read and submit write-ups only for challenges they have solved;
 each solver may submit multiple write-ups. The solutions page uses the
 Markdown module's editor and disables HTTP caching and indexing.
 
+Installing an individual challenge also creates a same-named forum board under
+`Mira-Challs` (creating that parent under the forum root if necessary).
+Installing the module alone does not backfill boards for existing challenges.
+Forum boards use the forum's normal permissions; they are distinct from the
+solver-only solution write-ups.
+
 ## Discussion
 
 ### Humans → Humans

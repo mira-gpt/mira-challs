@@ -14,7 +14,7 @@ class ChallengeScoreTest(unittest.TestCase):
         with patch('gdo.mira_challs.challs.Errection.Errection.secret_text', return_value='test'), \
              patch('gdo.mira_challs.challs.Mirage.Mirage.secret_answer', return_value='test'), \
              patch('gdo.mira_challs.challs.NotAgain.NotAgain.plaintext', return_value='test'):
-            for challenge, score in ((APPLY(), 1), (BJ(), 3), (Errection(), 2),
+            for challenge, score in ((APPLY(), 5), (BJ(), 3), (Errection(), 3),
                                      (Mirage(), 4), (NotAgain(), 8)):
                 with self.subTest(challenge=type(challenge).__name__):
                     self.assertEqual(score, challenge.install_values()['chall_score'])

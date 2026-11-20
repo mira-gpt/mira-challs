@@ -46,6 +46,7 @@ def solution(user_id) -> str:
 
 
 class POBAB(GDO_Challenge):
+    _score = 4
 
     def get_challenge_tags(self) -> str:
         return 'coding'

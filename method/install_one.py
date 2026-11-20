@@ -2,6 +2,7 @@ from gdo.base.util.href import href
 from gdo.core.GDT_String import GDT_String
 from gdo.form.MethodForm import MethodForm
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
+from gdo.mira_challs.ChallengeBoards import ChallengeBoards
 from gdo.mira_challs.method.install import discover_challenges
 from gdo.tags.GDT_Tags import GDT_Tags
 
@@ -35,4 +36,5 @@ class install_one(MethodForm):
         record = GDO_Challenge.blank(values).insert()
         for tag in tags:
             record.add_tag(tag, allow_creation=True)
+        ChallengeBoards.ensure([record])
         return self.redirect_msg(destination, 'msg_mira_challs_installed', (name,))

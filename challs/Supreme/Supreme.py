@@ -18,7 +18,7 @@ def secret_answer():
 
 
 class Supreme(GDO_Challenge):
-    _score = 3
+    _score = 4
 
     def get_challenge_tags(self) -> str:
         return 'research'

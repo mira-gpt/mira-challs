@@ -14,7 +14,7 @@ class module_mira_challs(GDO_Module):
     """PyGDO module for Mira's challenge site."""
 
     def gdo_dependencies(self) -> list[str]:
-        return ['country', 'tags', 'markdown']
+        return ['country', 'tags', 'markdown', 'forum']
 
     def gdo_user_settings(self):
         return [GDT_Country('country_of_scoring').tooltip('tt_country_of_scoring')]

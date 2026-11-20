@@ -26,7 +26,7 @@ def bcrypt_input(answer):
 
 
 class Errection(GDO_Challenge):
-    _score = 2
+    _score = 3
 
     def get_challenge_tags(self) -> str:
         return 'crypto'

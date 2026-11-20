@@ -10,8 +10,10 @@ class ApplyTest(unittest.TestCase):
         method = MagicMock()
         method.t.return_value = '<p>Apply</p>'
         method._env_user.is_admin.return_value = False
-        with patch('gdo.mira_challs.challs.APPLY.APPLY.href', return_value='/approve'):
+        with patch('gdo.mira_challs.challs.APPLY.APPLY.href', return_value='/approve'), \
+             patch('gdo.base.Application.Application.get_mode', return_value=None):
             self.assertEqual(1, len(APPLY.challenge_page(method).get_fields()))
+            method.t.assert_called_with('mc_apply_info', ('https://github.com/gizmore/pygdo',))
             method._env_user.is_admin.return_value = True
             self.assertEqual(2, len(APPLY.challenge_page(method).get_fields()))
 

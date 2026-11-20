@@ -87,6 +87,7 @@ class InstallTest(unittest.TestCase):
         record.insert.return_value = record
         with patch('gdo.mira_challs.method.install_one.href', return_value='/install'), \
              patch('gdo.mira_challs.method.install_one.discover_challenges', return_value=(['BJ', 'APPLY'], [])), \
+             patch('gdo.mira_challs.method.install_one.ChallengeBoards.ensure') as ensure_board, \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.load_challenge') as load, \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.table', return_value=table), \
              patch('gdo.mira_challs.method.install_one.GDO_Challenge.blank', return_value=record) as blank:
@@ -95,6 +96,7 @@ class InstallTest(unittest.TestCase):
             self.assertEqual(method.form_submitted(), 'ok')
             blank.assert_called_once_with({'chall_name': 'BJ'})
             record.insert.assert_called_once()
+            ensure_board.assert_called_once_with([record])
             self.assertEqual([call.args[0] for call in record.add_tag.call_args_list], ['challenge', 'math', 'fun'])
             for call in record.add_tag.call_args_list:
                 self.assertEqual({'allow_creation': True}, call.kwargs)
