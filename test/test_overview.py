@@ -23,13 +23,28 @@ class OverviewTest(unittest.TestCase):
             self.assertFalse(self.method.gdo_needs_authentication())
             self.assertEqual(self.method.gdo_table_headers(),
                              ['name', 'score', 'solvers', 'age', 'last solver', 'last solved'])
+        created.copy_as.return_value.label.assert_called_once_with('chall_released')
+
+    def test_release_shows_short_date_and_age(self):
+        field = MagicMock()
+        field.get_val.return_value = '2026-11-20 10:23:00'
+        field.render_format.side_effect = ['11/20/2026 10:23', '2 days ago']
+        self.assertEqual(self.method.render_chall_created(field, None),
+                         '11/20/2026 10:23 (2 days ago)')
+        self.assertEqual([call.args[0] for call in field.render_format.call_args_list], ['short', 'ago'])
+
+    def test_release_missing_date(self):
+        field = MagicMock()
+        field.get_val.return_value = None
+        self.assertEqual(self.method.render_chall_created(field, None), '---')
 
     def test_solver_count_is_derived_and_not_cached(self):
         table = MagicMock()
         query = table.select.return_value
         table.column.return_value.select_into.return_value = query
         query.nocache.return_value = query
-        with patch.object(self.method, 'gdo_table', return_value=table):
+        with patch.object(self.method, 'gdo_table', return_value=table), \
+                patch.object(self.method, 'param_value', return_value=None):
             self.assertIs(query, self.method.gdo_table_query())
         self.assertEqual([call.args[0] for call in table.column.call_args_list],
                          ['chall_solvercount', 'chall_last_solver', 'chall_last_solved'])

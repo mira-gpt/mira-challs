@@ -3,6 +3,7 @@ from gdo.base.Result import ResultType
 from gdo.core.GDT_Container import GDT_Container
 from gdo.core.GDT_UInt import GDT_UInt
 from gdo.core.GDT_String import GDT_String
+from gdo.date.Time import Time
 from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 from gdo.mira_challs.GDO_ChallengeTag import GDO_ChallengeTag
 from gdo.mira_challs.GDO_ChallengeTagLink import GDO_ChallengeTagLink
@@ -44,7 +45,7 @@ class challenges(MethodQueryTable):
     def gdo_table_headers(self):
         columns = self.gdo_table().columns()
         headers = [columns['chall_name'], columns['chall_score'], columns['chall_solvercount'],
-                columns['chall_created'].copy_as().label('chall_age'),
+                columns['chall_created'].copy_as().label('chall_released'),
                 columns['chall_last_solver'], columns['chall_last_solved']]
         user = getattr(self, '_env_user', None)
         if user and user.is_authenticated() and user.has_permission('owner'):
@@ -79,3 +80,8 @@ class challenges(MethodQueryTable):
         return GDT_Link().href(
             href('mira_challs', 'challenge', positional=(name,))
         ).text_raw(name).icon(None).render_html()
+
+    def render_chall_created(self, field, challenge):
+        if field.get_val() is None:
+            return '---'
+        return f'{field.render_format(Time.FMT_SHORT)} ({field.render_format(Time.FMT_AGO)})'
