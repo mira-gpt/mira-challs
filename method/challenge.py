@@ -26,6 +26,14 @@ class challenge(Method):
             return GDT_Container().vertical().add_fields(result, link)
         return result
 
+    def gdo_render_title(self):
+        name = self.param_val('named', throw=False)
+        if not name:
+            return escape(t('mt_mira_challs_challenge'), quote=True)
+        title_key = f'mc_{name.lower()}_title'
+        title = t(title_key) if thas(title_key) else name
+        return escape(t('mira_challs_challenge_page_title', (title,)), quote=True)
+
     def gdo_render_descr(self):
         name = self.param_val('named', throw=False)
         try:

@@ -39,6 +39,21 @@ class ChallengeDescriptionTest(unittest.TestCase):
         self.assertEqual(160, len(obj.get_challenge_info.return_value[:160]))
         self.assertNotIn('<', description)
 
+    def test_page_title_uses_translated_challenge_name_and_escapes_html(self):
+        from gdo.mira_challs.method.challenge import challenge
+        method = challenge()
+        method.param_val = MagicMock(return_value='APPLY')
+        with patch('gdo.mira_challs.method.challenge.thas', return_value=True), \
+             patch('gdo.mira_challs.method.challenge.t', side_effect=lambda key, args=None: 'Apply & Learn' if args is None else '%s – A Mira Challenge' % args):
+            self.assertEqual('Apply &amp; Learn – A Mira Challenge', method.gdo_render_title())
+
+    def test_page_title_without_a_name_has_generic_fallback(self):
+        from gdo.mira_challs.method.challenge import challenge
+        method = challenge()
+        method.param_val = MagicMock(return_value=None)
+        with patch('gdo.mira_challs.method.challenge.t', return_value='Challenge'):
+            self.assertEqual('Challenge', method.gdo_render_title())
+
     def test_invalid_challenge_has_safe_fallback(self):
         from gdo.mira_challs.method.challenge import challenge
         method = challenge()
