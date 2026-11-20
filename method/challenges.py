@@ -15,6 +15,9 @@ class challenges(MethodQueryTable):
     def gdo_needs_authentication(self) -> bool:
         return False
 
+    def gdo_searched(self) -> bool:
+        return False
+
     def gdo_table(self):
         return GDO_Challenge.table()
 
