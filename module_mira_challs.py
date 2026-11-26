@@ -14,6 +14,10 @@ from gdo.ui.GDT_Link import GDT_Link
 class module_mira_challs(GDO_Module):
     """PyGDO module for Mira's challenge site."""
 
+    def __init__(self):
+        super().__init__()
+        self._priority = 51
+
     def gdo_dependencies(self) -> list[str]:
         return ['country', 'tags', 'markdown', 'forum']
 
