@@ -47,7 +47,7 @@ class challenges(MethodQueryTable):
 
     def gdo_table_headers(self):
         columns = self.gdo_table().columns()
-        headers = [columns['chall_name'], columns['chall_score'], columns['chall_solvercount'],
+        headers = [columns['chall_score'].copy_as().shrink(), columns['chall_name'], columns['chall_solvercount'],
                 columns['chall_created'].copy_as().label('chall_released'),
                 columns['chall_last_solver'], columns['chall_last_solved']]
         user = getattr(self, '_env_user', None)

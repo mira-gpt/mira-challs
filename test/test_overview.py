@@ -14,7 +14,9 @@ class OverviewTest(unittest.TestCase):
         table = MagicMock()
         created = MagicMock()
         created.copy_as.return_value.label.return_value = 'age'
-        table.columns.return_value = {'chall_name': 'name', 'chall_score': 'score',
+        score = MagicMock()
+        score.copy_as.return_value.shrink.return_value = 'score'
+        table.columns.return_value = {'chall_name': 'name', 'chall_score': score,
                                       'chall_solvercount': 'solvers', 'chall_secret': 'secret',
                                       'chall_created': created, 'chall_last_solver': 'last solver',
                                       'chall_last_solved': 'last solved'}
@@ -22,8 +24,9 @@ class OverviewTest(unittest.TestCase):
             self.assertIsInstance(self.method, MethodQueryTable)
             self.assertFalse(self.method.gdo_needs_authentication())
             self.assertEqual(self.method.gdo_table_headers(),
-                             ['name', 'score', 'solvers', 'age', 'last solver', 'last solved'])
+                             ['score', 'name', 'solvers', 'age', 'last solver', 'last solved'])
         created.copy_as.return_value.label.assert_called_once_with('chall_released')
+        score.copy_as.return_value.shrink.assert_called_once_with()
 
     def test_release_shows_short_date_and_age(self):
         field = MagicMock()
