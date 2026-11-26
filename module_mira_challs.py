@@ -37,6 +37,6 @@ class module_mira_challs(GDO_Module):
         ]
 
     def gdo_init_sidebar(self, page):
-        page._left_bar.add_field(GDT_Link().href(self.href('challenges')).text('mira_challs_sidebar_challenges').icon('trophy'))
         page._left_bar.add_field(GDT_Link().href(self.href('welcome')).text('module_mira_challs').icon('trophy'))
         page._left_bar.add_field(GDT_Link().href(self.href('ranking')).text('mt_mira_challs_ranking').icon('trophy'))
+        page._left_bar.add_field(GDT_Link().href(self.href('challenges')).text('mira_challs_sidebar_challenges').icon('trophy'))

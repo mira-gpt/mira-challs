@@ -13,4 +13,4 @@ class SidebarIconsTest(unittest.TestCase):
             module.gdo_init_sidebar(page)
         links = [call.args[0] for call in page._left_bar.add_field.call_args_list]
         self.assertEqual(['trophy', 'trophy', 'trophy'], [link._icon_name for link in links])
-        self.assertEqual('/challenges', links[0]._href)
+        self.assertEqual(['/welcome', '/ranking', '/challenges'], [link._href for link in links])
