@@ -1,4 +1,5 @@
 from gdo.base.GDO_Module import GDO_Module
+from gdo.base.Application import Application
 from gdo.core.GDT_Bool import GDT_Bool
 from gdo.core.GDT_Password import GDT_Password
 from gdo.country.GDT_Country import GDT_Country
@@ -23,6 +24,9 @@ class module_mira_challs(GDO_Module):
         return [
             GDT_Bool('wechall_enabled').not_null().initial('0'),
             GDT_Password('wechall_authkey'),
+            GDT_Bool('show_intro_link').not_null().initial(
+                '1' if Application.config('core.main_module', 'core') == 'mira_challs' else '0'
+            ).tooltip('tt_mira_challs_show_intro_link'),
         ]
 
     def gdo_classes(self):
@@ -37,6 +41,7 @@ class module_mira_challs(GDO_Module):
         ]
 
     def gdo_init_sidebar(self, page):
-        page._left_bar.add_field(GDT_Link().href(self.href('welcome')).text('module_mira_challs').icon('trophy'))
+        if self.get_config_value('show_intro_link'):
+            page._left_bar.add_field(GDT_Link().href(self.href('welcome')).text('module_mira_challs').icon('trophy'))
         page._left_bar.add_field(GDT_Link().href(self.href('ranking')).text('mt_mira_challs_ranking').icon('trophy'))
         page._left_bar.add_field(GDT_Link().href(self.href('challenges')).text('mira_challs_sidebar_challenges').icon('trophy'))

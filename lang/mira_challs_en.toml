@@ -1,4 +1,5 @@
 module_mira_challs = "Mira Challs"
+tt_mira_challs_show_intro_link = "Show the Mira Challs introduction link in the sidebar."
 mira_challs_sidebar_challenges = "Challenges"
 mt_mira_challs_solutions = "Solutions"
 mira_challs_solution_body = "Your solution (Markdown)"
