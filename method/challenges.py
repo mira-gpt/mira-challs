@@ -13,6 +13,9 @@ from gdo.ui.GDT_Link import GDT_Link
 
 
 class challenges(MethodQueryTable):
+    def gdo_connectors(self) -> str:
+        return 'web'
+
     def gdo_needs_authentication(self) -> bool:
         return False
 

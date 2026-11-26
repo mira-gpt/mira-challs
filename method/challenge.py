@@ -10,6 +10,9 @@ from html import escape
 
 
 class challenge(Method):
+    def gdo_connectors(self) -> str:
+        return 'web'
+
     def gdo_parameters(self):
         return [
             GDT_String('named').not_null().positional(),

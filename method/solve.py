@@ -5,6 +5,9 @@ from gdo.mira_challs.GDO_Challenge import GDO_Challenge
 
 
 class solve(MethodForm):
+    def gdo_connectors(self) -> str:
+        return 'web'
+
     def gdo_parameters(self) -> list[GDT]:
         return [
             GDT_String('named').not_null().positional(),
